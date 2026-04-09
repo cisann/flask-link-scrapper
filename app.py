@@ -40,6 +40,8 @@ def index():
                 base_url = url
                 for a in soup.find_all('a', href=True):
                     href = a['href']
+                    if href.startswith(('mailto:', 'tel:', 'javascript:', '#')):
+                        continue
                     if href.startswith('//'):
                         href = 'https:' + href
                         links.append(href)
