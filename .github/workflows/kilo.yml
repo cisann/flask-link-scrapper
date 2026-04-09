@@ -1,4 +1,4 @@
-name: Scheduled Improvement (kilo-auto/free)
+name: Scheduled Improvement (Kilo Code)
 on:
   schedule:
     - cron: '0 0 * * *' # Daily at midnight
@@ -24,7 +24,7 @@ jobs:
       - name: Install Kilo CLI
         run: npm install -g @kilocode/cli
 
-      - name: Configure Kilo (kilo-auto/free)
+      - name: Configure Kilo
         run: |
           mkdir -p ~/.config/kilo
           echo '{
@@ -39,17 +39,8 @@ jobs:
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
       - name: Run Kilo (Token-Saving Mode)
+        env:
+          KILO_API_KEY: ${{ secrets.KILO_API_KEY }}
         run: |
           # The prompt is explicitly designed to minimize token consumption
           kilo run --auto "Perform a daily minimalist improvement (it is a must, whatever it is). Add minimalist code or fix one specific bug, typo, or small logic flaw in a single file. Avoid large refactors or full-file rewrites. Keep changes minimal to save tokens. After the edit, execute git add, git commit with relevant commit name, and git push"
-
-      # - name: Commit and Push as Current User
-      #   run: |
-      #     git add .
-          
-      #     if ! git diff --cached --quiet; then
-      #       git commit -m "chore: autonomous micro-fix by Kilo AI"
-      #       git push
-      #     else
-      #       echo "No changes found within token constraints."
-      #     fi

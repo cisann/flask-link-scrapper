@@ -1,0 +1,54 @@
+name: Scheduled Improvement (OpenCode)
+on:
+  schedule:
+    - cron: '0 12 * * *' # Daily at noon (offset from Kilo's midnight run)
+  workflow_dispatch:
+
+jobs:
+  opencode-autonomous:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install OpenCode CLI
+        run: npm install -g opencode-ai
+
+      - name: Configure OpenCode
+        run: |
+          mkdir -p ~/.config/opencode
+          echo '{
+            "$schema": "https://opencode.ai/config.json",
+            "provider": {
+              "opencode": {
+                "options": {}
+              }
+            },
+            "model": "opencode/big-pickle"
+          }' > ~/.config/opencode/opencode.json
+          if [ -n "${{ secrets.OPENCODE_API_KEY }}" ]; then
+            mkdir -p ~/.local/share/opencode
+            echo "{\"opencode\": \"$OPENCODE_API_KEY\"}" > ~/.local/share/opencode/auth.json
+          fi
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+
+      - name: Set Git Identity (Actor Profile)
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Run OpenCode (Token-Saving Mode)
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        run: |
+          opencode run "Perform a daily minimalist improvement (it is a must, whatever it is). Add minimalist code or fix one specific bug, typo, or small logic flaw in a single file. Avoid large refactors or full-file rewrites. Keep changes minimal to save tokens. After the edit, execute git add, git commit with relevant commit name, and git push"
