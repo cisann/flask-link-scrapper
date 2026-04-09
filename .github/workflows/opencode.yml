@@ -26,30 +26,18 @@ jobs:
       - name: Configure OpenCode
         run: |
           mkdir -p ~/.config/opencode
+          echo '{
+            "$schema": "https://opencode.ai/config.json",
+            "provider": {
+              "opencode": {
+                "options": {}
+              }
+            },
+            "model": "opencode/big-pickle"
+          }' > ~/.config/opencode/opencode.json
           if [ -n "${{ secrets.OPENCODE_API_KEY }}" ]; then
-            echo "Using OpenCode with API key (OpenCode Zen provider)"
-            echo '{
-              "$schema": "https://opencode.ai/config.json",
-              "provider": {
-                "opencode": {
-                  "options": {}
-                }
-              },
-              "model": "opencode/claude-sonnet-4"
-            }' > ~/.config/opencode/opencode.json
             mkdir -p ~/.local/share/opencode
             echo "{\"opencode\": \"$OPENCODE_API_KEY\"}" > ~/.local/share/opencode/auth.json
-          else
-            echo "Using OpenCode without API key (free models)"
-            echo '{
-              "$schema": "https://opencode.ai/config.json",
-              "provider": {
-                "opencode": {
-                  "options": {}
-                }
-              },
-              "model": "opencode/big-pickle"
-            }' > ~/.config/opencode/opencode.json
           fi
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}

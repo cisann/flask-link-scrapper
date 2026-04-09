@@ -27,19 +27,10 @@ jobs:
       - name: Configure Kilo
         run: |
           mkdir -p ~/.config/kilo
-          if [ -n "${{ secrets.KILO_API_KEY }}" ]; then
-            echo "Using Kilo with API key (kilo-auto model)"
-            echo '{
-              "$schema": "https://app.kilo.ai/config.json",
-              "model": "kilo/kilo-auto"
-            }' > ~/.config/kilo/kilo.jsonc
-          else
-            echo "Using Kilo without API key (kilo-auto/free model)"
-            echo '{
-              "$schema": "https://app.kilo.ai/config.json",
-              "model": "kilo/kilo-auto/free"
-            }' > ~/.config/kilo/kilo.jsonc
-          fi
+          echo '{
+            "$schema": "https://app.kilo.ai/config.json",
+            "model": "kilo/kilo-auto/free"
+          }' > ~/.config/kilo/kilo.jsonc
 
       - name: Set Git Identity (Actor Profile)
         run: |
