@@ -50,7 +50,7 @@ def index():
                     else:
                         full_url = urljoin(base_url, href)
                         links.append(full_url)
-                links = list(set(links))
+                links = sorted(set(links))
             except Exception as e:
                 return f"Error: {str(e)}", 400
     return render_template_string(HTML_TEMPLATE, links=links)
