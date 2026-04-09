@@ -28,14 +28,9 @@ jobs:
         run: |
           mkdir -p ~/.config/kilo
           echo '{
-            "activeProviderId": "kilocode",
-            "kilocodeModel": "kilo-auto/free",
-            "permissions": {
-              "execute_command": "allow",
-              "read_file": "allow",
-              "write_file": "allow",
-              "list_files": "allow"
-            }
+            "$schema": "https://app.kilo.ai/config.json",
+            "model": "kilo/kilo-auto/free",
+            "permission": "allow"
           }' > ~/.config/kilo/kilo.jsonc
 
       - name: Set Git Identity (Actor Profile)
