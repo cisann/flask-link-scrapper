@@ -34,7 +34,8 @@ def index():
         url = request.form.get('url')
         if url:
             try:
-                response = requests.get(url, timeout=10)
+                headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+                response = requests.get(url, timeout=10, headers=headers)
                 soup = BeautifulSoup(response.text, 'html.parser')
                 base_url = url
                 for a in soup.find_all('a', href=True):
