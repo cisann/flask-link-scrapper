@@ -40,7 +40,10 @@ def index():
                 base_url = url
                 for a in soup.find_all('a', href=True):
                     href = a['href']
-                    if href.startswith('http'):
+                    if href.startswith('//'):
+                        href = 'https:' + href
+                        links.append(href)
+                    elif href.startswith('http'):
                         links.append(href)
                     else:
                         full_url = urljoin(base_url, href)
