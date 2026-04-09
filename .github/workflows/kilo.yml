@@ -29,8 +29,7 @@ jobs:
           mkdir -p ~/.config/kilo
           echo '{
             "$schema": "https://app.kilo.ai/config.json",
-            "model": "kilo/kilo-auto/free",
-            "permission": "allow"
+            "model": "kilo/kilo-auto/free"
           }' > ~/.config/kilo/kilo.jsonc
 
       - name: Set Git Identity (Actor Profile)
