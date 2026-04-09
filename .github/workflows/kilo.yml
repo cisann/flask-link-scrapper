@@ -1,0 +1,61 @@
+name: Scheduled Improvement (kilo-auto/free)
+on:
+  schedule:
+    - cron: '0 0 * * *' # Daily at midnight
+  workflow_dispatch:
+
+jobs:
+  kilo-autonomous:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # persist-credentials ensures the GITHUB_TOKEN is available for Kilo's git push
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Kilo CLI
+        run: npm install -g @kilocode/cli
+
+      - name: Configure Kilo (kilo-auto/free)
+        run: |
+          mkdir -p ~/.config/kilo
+          echo '{
+            "activeProviderId": "kilocode",
+            "kilocodeModel": "kilo-auto/free",
+            "permissions": {
+              "execute_command": "allow",
+              "read_file": "allow",
+              "write_file": "allow",
+              "list_files": "allow"
+            }
+          }' > ~/.config/kilo/kilo.jsonc
+
+      - name: Set Git Identity (Actor Profile)
+        run: |
+          # Links the commit to your GitHub account using the actor context
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Run Kilo (Token-Saving Mode)
+        run: |
+          # The prompt is explicitly designed to minimize token consumption
+          kilo run --auto "Perform a daily minimalist improvement. Fix one specific bug, typo, or small logic flaw in a single file. Avoid large refactors or full-file rewrites. Keep changes minimal to save tokens. After the edit, execute git add, git commit with relevant commit name, and git push"
+
+      # - name: Commit and Push as Current User
+      #   run: |
+      #     git add .
+          
+      #     if ! git diff --cached --quiet; then
+      #       git commit -m "chore: autonomous micro-fix by Kilo AI"
+      #       git push
+      #     else
+      #       echo "No changes found within token constraints."
+      #     fi
