@@ -47,6 +47,7 @@ def index():
                     if href.startswith('//'):
                         href = 'https:' + href
                         links.append(href)
+                        continue
                     elif href.startswith('http'):
                         links.append(href)
                     else:
