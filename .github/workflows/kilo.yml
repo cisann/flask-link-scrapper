@@ -41,7 +41,7 @@ jobs:
       - name: Run Kilo (Token-Saving Mode)
         run: |
           # The prompt is explicitly designed to minimize token consumption
-          kilo run --auto "Perform a daily minimalist improvement. Fix one specific bug, typo, or small logic flaw in a single file. Avoid large refactors or full-file rewrites. Keep changes minimal to save tokens. After the edit, execute git add, git commit with relevant commit name, and git push"
+          kilo run --auto "Perform a daily minimalist improvement (it is a must, whatever it is). Add minimalist code or fix one specific bug, typo, or small logic flaw in a single file. Avoid large refactors or full-file rewrites. Keep changes minimal to save tokens. After the edit, execute git add, git commit with relevant commit name, and git push"
 
       # - name: Commit and Push as Current User
       #   run: |
