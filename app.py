@@ -51,8 +51,6 @@ def index():
                     elif href.startswith('http://') or href.startswith('https://'):
                         links.append(href)
                     else:
-                        if not base_url.endswith('/'):
-                            base_url += '/'
                         full_url = urljoin(base_url, href)
                         links.append(full_url)
                 links = sorted(set(links))
