@@ -49,7 +49,9 @@ def index():
                         links.append(href)
                         continue
                     elif href.startswith('http://') or href.startswith('https://'):
-                        links.append(href)
+                        parsed = urlparse(href)
+                        if parsed.scheme and parsed.netloc:
+                            links.append(href)
                     else:
                         full_url = urljoin(base_url, href)
                         links.append(full_url)
