@@ -36,7 +36,7 @@ def index():
             try:
                 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
                 response = requests.get(url, timeout=10, headers=headers)
-                if response.status_code != 200:
+                if not (200 <= response.status_code < 300):
                     return f"Error: Received status code {response.status_code}", 400
                 soup = BeautifulSoup(response.text, 'html.parser')
                 base_url = url
