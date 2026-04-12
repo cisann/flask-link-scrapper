@@ -6,7 +6,7 @@ from urllib.parse import urljoin, urlparse
 app = Flask(__name__)
 
 HTML_TEMPLATE = '''
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head><title>Link Scraper</title></head>
 <body>
