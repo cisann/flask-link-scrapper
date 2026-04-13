@@ -40,7 +40,9 @@ def index():
                 soup = BeautifulSoup(response.text, 'html.parser')
                 base_url = url
                 for a in soup.find_all('a', href=True):
-                    href = a['href']
+                    href = a['href'].strip()
+                    if not href:
+                        continue
                     if href.startswith(('mailto:', 'tel:', 'javascript:', '#')):
                         continue
                     if href.startswith('//'):
