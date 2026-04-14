@@ -35,7 +35,7 @@ def index():
         if url:
             try:
                 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-                response = requests.get(url, timeout=10, headers=headers)
+                response = requests.get(url, timeout=10, headers=headers, allow_redirects=True)
                 response.raise_for_status()
                 soup = BeautifulSoup(response.text, 'html.parser')
                 base_url = url
