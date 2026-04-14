@@ -46,8 +46,10 @@ def index():
                     if href.startswith(('mailto:', 'tel:', 'javascript:', '#')):
                         continue
                     if href.startswith('//'):
-                        href = 'https:' + href
-                        links.append(href)
+                        full_url = 'https:' + href
+                        parsed = urlparse(full_url)
+                        if parsed.scheme and parsed.netloc:
+                            links.append(full_url)
                         continue
                     elif href.startswith('http://') or href.startswith('https://'):
                         parsed = urlparse(href)
