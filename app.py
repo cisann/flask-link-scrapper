@@ -38,7 +38,7 @@ def index():
                 response = requests.get(url, timeout=10, headers=headers, allow_redirects=True)
                 response.raise_for_status()
                 soup = BeautifulSoup(response.text, 'html.parser')
-                base_url = url
+                base_url = response.url
                 for a in soup.find_all('a', href=True):
                     href = a['href'].strip()
                     if not href:
