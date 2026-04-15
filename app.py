@@ -37,6 +37,9 @@ def index():
                 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
                 response = requests.get(url, timeout=10, headers=headers, allow_redirects=True)
                 response.raise_for_status()
+                content_type = response.headers.get('Content-Type', '')
+                if 'text/html' not in content_type and 'application/xhtml' not in content_type:
+                    return "Error: URL did not return HTML content", 400
                 soup = BeautifulSoup(response.text, 'html.parser')
                 base_url = response.url
                 for a in soup.find_all('a', href=True):
