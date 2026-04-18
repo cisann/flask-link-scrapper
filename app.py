@@ -55,7 +55,7 @@ def index():
                         if parsed.scheme and parsed.netloc:
                             links.append(full_url)
                         continue
-                    elif href.startswith('http://') or href.startswith('https://'):
+                    elif href.startswith(('http://', 'https://')):
                         parsed = urlparse(href)
                         if parsed.scheme and parsed.netloc:
                             links.append(href)
