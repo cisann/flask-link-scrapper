@@ -40,7 +40,7 @@ def index():
                 response = requests.get(url, timeout=10, headers=headers, allow_redirects=True)
                 response.raise_for_status()
                 content_type = response.headers.get('Content-Type', '')
-                if not ('text/html' in content_type or 'application/xhtml' in content_type):
+                if not any(ct in content_type for ct in ('text/html', 'application/xhtml')):
                     return "Error: URL did not return HTML content", 400
                 soup = BeautifulSoup(response.text, 'html.parser')
                 base_url = response.url
