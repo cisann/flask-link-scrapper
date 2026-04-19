@@ -33,6 +33,8 @@ def index():
     if request.method == 'POST':
         url = request.form.get('url')
         if url:
+            if not url.startswith(('http://', 'https://')):
+                url = 'https://' + url
             try:
                 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
                 response = requests.get(url, timeout=10, headers=headers, allow_redirects=True)
