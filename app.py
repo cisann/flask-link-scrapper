@@ -8,7 +8,7 @@ app = Flask(__name__)
 HTML_TEMPLATE = '''
 <!DOCTYPE html>
 <html>
-<head><title>Link Scraper</title></head>
+<head><meta charset="UTF-8"><title>Link Scraper</title></head>
 <body>
   <h1>Link Scraper</h1>
   <form method="post">
