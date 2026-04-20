@@ -36,7 +36,7 @@ def index():
             if not url.startswith(('http://', 'https://')):
                 url = 'https://' + url
             try:
-                headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+                headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
                 response = requests.get(url, timeout=10, headers=headers, allow_redirects=True)
                 response.raise_for_status()
                 content_type = response.headers.get('Content-Type', '')
