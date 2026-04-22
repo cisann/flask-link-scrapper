@@ -68,7 +68,7 @@ def index():
                             links.append(full_url)
                 links = sorted(set(links))
             except Exception as e:
-                return f"Error: {str(e)}", 400
+                return jsonify({"error": str(e)}), 400
     return render_template_string(HTML_TEMPLATE, links=links)
 
 if __name__ == '__main__':
