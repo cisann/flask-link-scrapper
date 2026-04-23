@@ -38,6 +38,8 @@ def index():
             try:
                 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
                 response = requests.get(url, timeout=10, headers=headers, allow_redirects=True)
+                if response.status_code >= 400:
+                    return jsonify({"error": f"HTTP error: {response.status_code}"}), response.status_code
                 response.raise_for_status()
                 content_type = response.headers.get('Content-Type', '')
                 if not any(ct in content_type for ct in ('text/html', 'application/xhtml')):
