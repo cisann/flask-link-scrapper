@@ -31,7 +31,7 @@ HTML_TEMPLATE = '''
 def index():
     links = []
     if request.method == 'POST':
-        url = request.form.get('url')
+        url = request.form.get('url', '').strip()
         if url:
             if not url.startswith(('http://', 'https://')):
                 url = 'https://' + url
