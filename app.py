@@ -65,7 +65,7 @@ def index():
                     else:
                         full_url = urljoin(base_url, href)
                         parsed = urlparse(full_url)
-                        if parsed.scheme and parsed.netloc and full_url not in links:
+                        if parsed.scheme and parsed.netloc:
                             links.append(full_url)
                 links = sorted(set(links))
             except Exception as e:
