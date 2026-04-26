@@ -49,7 +49,7 @@ def index():
                     href = a['href'].strip()
                     if not href:
                         continue
-                     if href.lower().startswith(('mailto:', 'tel:', 'javascript:', '#')):
+if href.lower().startswith(('mailto:', 'tel:', 'javascript:', '#')):
                          continue
                     if href.startswith('//'):
                         scheme = urlparse(base_url).scheme or 'https'
