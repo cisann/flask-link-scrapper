@@ -42,14 +42,12 @@ def index():
                     return jsonify({"error": f"HTTP error: {response.status_code}"}), response.status_code
                 content_type = response.headers.get('Content-Type', '')
                 if not any(ct in content_type for ct in ('text/html', 'application/xhtml')):
-                    return jsonify({"error": "URL did not return HTML content"}), 400
+                    return render_template_string(HTML_TEMPLATE, links=[], error="URL did not return HTML content")
                 soup = BeautifulSoup(response.text, 'html.parser')
                 base_url = response.url
                 for a in soup.find_all('a', href=True):
                     href = a['href'].strip()
-                    if not href:
-                        continue
-                    if href.lower().startswith(('mailto:', 'tel:', 'javascript:', '#')):
+                    if not href or href.lower().startswith(('mailto:', 'tel:', 'javascript:', '#')):
                         continue
                     if href.startswith('//'):
                         scheme = urlparse(base_url).scheme or 'https'
