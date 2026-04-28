@@ -15,6 +15,9 @@ HTML_TEMPLATE = '''
     <input type="url" name="url" placeholder="Enter URL" required>
     <button type="submit">Scrape Links</button>
   </form>
+  {% if error %}
+  <p style="color: red;">{{ error }}</p>
+  {% endif %}
   {% if links %}
   <h2>Found {{ links|length }} links:</h2>
   <ul>
