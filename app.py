@@ -42,7 +42,7 @@ def index():
                 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
                 response = requests.get(url, timeout=10, headers=headers, allow_redirects=True)
                 if response.status_code >= 400:
-                    return jsonify({"error": f"HTTP error: {response.status_code}"}), response.status_code
+                    return render_template_string(HTML_TEMPLATE, links=[], error=f"HTTP error: {response.status_code}")
                 content_type = response.headers.get('Content-Type', '')
                 if not any(ct in content_type for ct in ('text/html', 'application/xhtml+xml')):
                     return render_template_string(HTML_TEMPLATE, links=[], error="URL did not return HTML content")
